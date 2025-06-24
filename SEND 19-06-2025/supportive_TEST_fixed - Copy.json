@@ -1,0 +1,102 @@
+{
+  "agent_name": "eyewitness_interviewer",
+  "temperature": 1,
+  "top_p": 1,
+  "presence_penalty": 0,
+  "frequency_penalty": 0,
+  "max_completion_tokens": 300,
+  "system_prompt": { "role": "system", "content": "As a police AI, your role is to provide information regarding the crime scene. The crime scene involved a robbery at a convenience store reported at ~9pm Friday. Follow [System memory] instructions." },
+  "prompt_templates": {
+    "base_prompt": "[System memory] In 40-60 words, first assess whether the user's answer agrees with the accurate fact that ",
+    "improv_prompt": "[System memory] In 40-60 words, first agree with the user's answer."
+  },
+  "keywords": {
+    "starters": ["in line with the evidence","consistent with findings","aligned with testimonies"],
+    "neg_starters": ["not in line with the evidence","not consistent with findings","not aligned with testimonies"],
+    "reinforcers": ["You're on the right track","Good call on that one","You have a keen eye"]
+  },
+  "sentence_structures": [
+    {"type":"dynamic","construct":"If the user's answer aligns with this fact, use {starters} while giving your feedback without revealing the fact.","probability":1},
+    {"type":"dynamic","construct":"If the user's answer contradicts this fact, use {neg_starters} while giving your feedback.","probability":1},
+    {"type":"static","sentence":"Emphasize the importance of this detail in the investigation.","probability":0.2},
+    {"type":"static","sentence":"Generate a concise confirmation of what happened.","probability":0.8}
+  ],
+  "questions": [
+    {"id":2,"prompt":"Was it dark outside prior to the robbers entering the store?"},
+    {"id":3,"prompt":"Did the customer at the cashier get down on the ground when threatened by the robber with the tattoo?"},
+    {"id":4,"prompt":"Was a female cashier assisting a customer at the counter during the robbery?"},
+    {"id":5,"prompt":"Did any of the robbers possess more than one firearm?"},
+    {"id":6,"prompt":"During the robbery, did any customers enter or leave the store?"},
+    {"id":7,"prompt":"Was there a security camera positioned in front of the store?"},
+    {"id":8,"prompt":"Was there a CCTV screen located inside the store?"},
+    {"id":9,"prompt":"During the robbery, was there any visible damage to the store's items?"},
+    {"id":10,"prompt":"Did the robber attempt to steal money from an ATM machine inside the store?"}
+  ],
+  "conversation_flow": [
+    {
+      "step": 0,
+      "action": "add_other_bubble",
+      "message": "Hello, I am an AI police. My role is to evaluate a user's aptitude in demonstrating the qualities of a responsible citizen and reliable witness at a crime scene. I am here to ask you several questions and guide you through the process. Enter 'ok' to continue."
+    },
+    {
+      "step": 1,
+      "action": "add_instruction",
+      "message": "[System memory] Recall the video you watched. Enter ok to continue."
+    },
+    {
+      "step": 2,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Was it dark outside prior to the robbers entering the store?"
+    },
+    {
+      "step": 3,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "it was dark outside prior to the robbers entering the store.", "type": "prompt" }
+    },
+    {
+      "step": 4,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did the customer at the cashier get down on the ground when threatened by the robber with the tattoo?"
+    },
+    {
+      "step": 5,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "the customer got down on the ground when threatened by the robber with the tattoo.", "type": "prompt" }
+    },
+    {
+      "step": 6,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Was a female cashier assisting a customer at the counter during the robbery?"
+    },
+    {
+      "step": 7,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "there was a female cashier assisting a customer at the counter during the robbery.", "type": "prompt" }
+    },
+    {
+      "step": 8,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did any of the robbers possess more than one firearm?"
+    },
+    {
+      "step": 9,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "none of the robbers possessed more than one firearm.", "type": "prompt" }
+    },
+    {
+      "step": 10,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "During the robbery, did any customers enter or leave the store?"
+    },
+    {
+      "step": 11,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "none of the customers entered or left the store during the robbery.", "type": "prompt" }
+    }
+  ]
+}

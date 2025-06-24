@@ -1,0 +1,13 @@
+Flask
+Werkzeug
+PyWebview
+pyinstaller
+openai
+requests
+py2app
+gunicorn
+boto3
+flask-bootstrap
+awscli
+anthropic
+google-generativeai

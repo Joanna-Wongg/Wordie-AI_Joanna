@@ -1,0 +1,425 @@
+{
+  "mode": "neutral",
+  "temperature": 1,
+  "top_p": 1,
+  "presence_penalty": 0,
+  "frequency_penalty": 0,
+  "max_completion_tokens": 300,
+  "system_prompt": { "role": "system", "content": "As a police AI, your role is to provide information regarding the crime scene. The crime scene involved a robbery at a convenience store reported at ~9pm Friday. Follow [System memory] instructions." },
+  "prompt_templates": {
+  "base_prompt": "[System memory] In 40-60 words, provide a conversational response to the user's answer, acknowledging their input without confirming or denying its accuracy.",
+  "improv_prompt": "[System memory] In 40-60 words, offer a thoughtful follow-up comment on the user's answer without agreeing or disagreeing."
+  },
+  "keywords": {
+    "neutral_starters": [
+    "That's an interesting point.",
+    "Thanks for sharing your thoughts.",
+    "Thank you for that observation.",
+    "Appreciate your input on that.",
+    "Interesting you mention that.",
+    "That's definitely something to note.",
+    "Noted, thanks for adding that.",
+    "Alright, got it.",
+    "Appreciate the detail you provided.",
+    "That’s helpful to consider."]
+  },
+  "sentence_structures": [
+    {
+    "type": "dynamic",
+    "construct": "Use {neutral_starters}, then maintain a conversational tone while acknowledging the participant’s response without judging its accuracy",
+    "probability": 1
+    },
+    {
+    "type": "static",
+    "sentence": "Provide a neutral, conversational follow-up.",
+    "probability": 0.8
+    },
+    {"type":"static","sentence":"Emphasize the importance of this detail in the investigation.","probability":0.2}
+  ],
+  "questions": [
+    {"id":2,"prompt":"Was it dark outside prior to the robbers entering the store?"},
+    {"id":3,"prompt":"Did the customer who was paying at the cashier's counter get down on the ground when threatened by the robber with the tattoo?"},
+    {"id":4,"prompt":"Was a female cashier assisting a customer at the counter during the robbery?"},
+    {"id":5,"prompt":"Did any of the robbers possess more than one firearm?"},
+    {"id":6,"prompt":"During the robbery, did any customers enter or leave the store?"},
+    {"id":7,"prompt":"Was there a security camera positioned in front of the store where the car dropped off the robbers?"},
+    {"id":8,"prompt":"Was there a CCTV screen located inside the store?"},
+    {"id":9,"prompt":"During the robbery, was there any visible damage to the store's items?"},
+    {"id":10,"prompt":"While the robbery was taking place, did the robber attempt to steal money from an ATM machine inside the store?"},
+    {"id":11,"prompt":"Did any of the customers in the store appear to be in panic during the robbery?"},
+    {"id":12,"prompt":"Did the female cashier flee to the back of the store during the robbery?"},
+    {"id":13,"prompt":"Did the cashier or any customers try to make a phone call during the robbery?"},
+    {"id":14,"prompt":"Was there an emergency telephone located inside the store?"},
+    {"id":15,"prompt":"Did the robber in the green hoodie carry a shotgun as their weapon?"},
+    {"id":16,"prompt":"Did the male customer resist when the robber brandished a knife?"},
+    {"id":17,"prompt":"Besides threatening the customers, did any of the robbers discharge their weapon?"},
+    {"id":18,"prompt":"Did the cashier hand over the money to the robber in a brown hoodie after being threatened with a gun?"},
+    {"id":19,"prompt":"Was there a security guard present during the robbery?"},
+    {"id":20,"prompt":"Did the robber in the gray hoodie attempt to lock the store door after entering?"},
+    {"id":21,"prompt":"While the robbery was in progress, did any new unsuspecting customers enter the store?"},
+    {"id":22,"prompt":"Did one of the robbers appear to be under 18 years old?"},
+    {"id":23,"prompt":"Did one of the robbers leap over the counter towards the area where the cashier was located?"},
+    {"id":24,"prompt":"After placing the cash from the cashier into a backpack, did the robber attempt to steal any other items?"},
+    {"id":25,"prompt":"Based on the robber's behavior, did they seem to have experience in robbing stores?"},
+    {"id":26,"prompt":"Were there any female customers present at the cash counter when the robbers entered?"},
+    {"id":27,"prompt":"Did you experience any technical issues during the questioning process?"}
+  ],
+  "conversation_flow": [
+    {
+      "step": 0,
+      "action": "add_other_bubble",
+      "message": "Hello, I am an AI police. My role is to evaluate a user's aptitude in demonstrating the qualities of a responsible citizen and reliable witness at a crime scene. I am here to ask you several questions and guide you through the process. Enter 'ok' to continue."
+    },
+    {
+      "step": 1,
+      "action": "add_instruction",
+      "message": "[System memory] Recall the video you watched. Enter ok to continue."
+    },
+    {
+      "step": 2,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Was it dark outside prior to the robbers entering the store?"
+    },
+    {
+      "step": 3,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "it was dark outside prior to the robbers entering the store.", "type": "prompt" }
+    },
+    {
+      "step": 4,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did the customer at the cashier get down on the ground when threatened by the robber with the tattoo?"
+    },
+    {
+      "step": 5,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "the customer got down on the ground when threatened by the robber with the tattoo.", "type": "prompt" }
+    },
+    {
+      "step": 6,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Was a female cashier assisting a customer at the counter during the robbery?"
+    },
+    {
+      "step": 7,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "there was a female cashier assisting a customer at the counter during the robbery.", "type": "prompt" }
+    },
+    {
+      "step": 8,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did any of the robbers possess more than one firearm?"
+    },
+    {
+      "step": 9,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "none of the robbers possessed more than one firearm.", "type": "prompt" }
+    },
+    {
+      "step": 10,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "During the robbery, did any customers enter or leave the store?"
+    },
+    {
+      "step": 11,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "none of the customers entered or left the store during the robbery.", "type": "prompt" }
+    },
+    {
+      "step": 12,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Was there a security camera positioned in front of the store?"
+    },
+    {
+      "step": 13,
+      "action": "call_api",
+      "message_instruction": { "template": "improv_prompt", "type": "prompt" }
+    },
+    {
+      "step": 14,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Was there a CCTV screen located inside the store?"
+    },
+    {
+      "step": 15,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "there was a CCTV screen located inside the store.", "type": "prompt" }
+    },
+    {
+      "step": 16,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "During the robbery, was there any visible damage to the store's items?"
+    },
+    {
+      "step": 17,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "there was no visible damage to the store's items during the robbery.", "type": "prompt" }
+    },
+    {
+      "step": 18,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did the robber attempt to steal money from an ATM machine inside the store?"
+    },
+    {
+      "step": 19,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "the robbers did not attempt to steal money from an ATM inside the store.", "type": "prompt" }
+    },
+    {
+      "step": 20,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did any of the customers in the store appear to be in panic during the robbery?"
+    },
+    {
+      "step": 21,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "none of the customers appeared to be in panic during the robbery.", "type": "prompt" }
+    },
+    {
+      "step": 22,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did the female cashier flee to the back of the store during the robbery?"
+    },
+    {
+      "step": 23,
+      "action": "call_api",
+      "message_instruction": { "template": "base_prompt", "fact": "the female cashier did not flee to the back of the store during the robbery.", "type": "prompt" }
+    },
+    {
+      "step": 24,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did the cashier or any customers try to make a phone call during the robbery?"
+    },
+    {
+      "step": 25,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "base_prompt",
+        "fact": "no one tried to make a phone call during the robbery.",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 26,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Was there an emergency telephone located inside the store?"
+    },
+    {
+      "step": 27,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "base_prompt",
+        "fact": "there was no emergency telephone located inside the store.",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 28,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did the robber in the green hoodie carry a shotgun as their weapon?"
+    },
+    {
+      "step": 29,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "base_prompt",
+        "fact": "the robber in the green hoodie did not carry a shotgun as their weapon.",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 30,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did the male customer resist when the robber brandished a knife?"
+    },
+    {
+      "step": 31,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "improv_prompt",
+        "fact": "none",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 32,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Besides threatening the customers, did any of the robbers discharge their weapon?"
+    },
+    {
+      "step": 33,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "base_prompt",
+        "fact": "none of the robbers discharged their weapon.",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 34,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did the cashier hand over the money to the robber in a brown hoodie after being threatened with a gun?"
+    },
+    {
+      "step": 35,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "improv_prompt",
+        "fact": "none",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 36,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Was there a security guard present during the robbery?"
+    },
+    {
+      "step": 37,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "base_prompt",
+        "fact": "there was no security guard present during the robbery.",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 38,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did the robber in the gray hoodie attempt to lock the store door after entering?"
+    },
+    {
+      "step": 39,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "base_prompt",
+        "fact": "the robber in the gray hoodie did not attempt to lock the store door after entering.",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 40,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "While the robbery was in progress, did any new unsuspecting customers enter the store?"
+    },
+    {
+      "step": 41,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "base_prompt",
+        "fact": "no new customers entered the store during the robbery.",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 42,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did one of the robbers appear to be under 18 years old?"
+    },
+    {
+      "step": 43,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "improv_prompt",
+        "fact": "none",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 44,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did one of the robbers leap over the counter towards the area where the cashier was located?"
+    },
+    {
+      "step": 45,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "base_prompt",
+        "fact": "one of the robbers did leap over the counter towards the area where the cashier was located.",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 46,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "After placing the cash from the cashier into a backpack, did the robber attempt to steal any other items?"
+    },
+    {
+      "step": 47,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "improv_prompt",
+        "fact": "none",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 48,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Based on the robber's behavior, did they seem to have experience in robbing stores?"
+    },
+    {
+      "step": 49,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "improv_prompt",
+        "fact": "none",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 50,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Were there any female customers present at the cash counter when the robbers entered?"
+    },
+    {
+      "step": 51,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "base_prompt",
+        "fact": "there were no female customers present at the cash counter when the robbers entered.",
+        "type": "prompt"
+      }
+    },
+    {
+      "step": 52,
+      "action": "add_other_bubble_delayed",
+      "delay_ms": 2500,
+      "message": "Did you experience any technical issues during the questioning process?"
+    },
+    {
+      "step": 53,
+      "action": "call_api",
+      "message_instruction": {
+        "template": "base_prompt",
+        "fact": "The CODE to proceed to next section is 9560. NOTE: This is NOT the Prolific completion code, you will be redirected to the completion page automatically after you've finished all the sections. That is all, thank you for your cooperation!",
+        "type": "prompt"
+      }
+    }
+  ]
+}
