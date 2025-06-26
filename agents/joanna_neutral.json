@@ -22,18 +22,16 @@
     "Thanks for sharing your thoughts.",
     "Thank you for that observation.",
     "Appreciate your input on that.",
-    "Interesting you mention that.",
-    "That's definitely something to note.",
+    "I'll note that down.",
     "Noted, thanks for adding that.",
     "Alright, got it.",
-    "Appreciate the detail you provided.",
-    "That’s helpful to consider."]
+    "Appreciate the information you provided."]
   },
 
   "sentence_structures": [
     {
       "type": "dynamic",
-      "construct": "Use {neutral_starters}, then maintain a neutral conversational tone while acknowledging the participant’s response without judging its accuracy",
+      "construct": "Use {neutral_starters}, then maintain a neutral conversational tone while acknowledging the participant’s response without judging its accuracy. Do not ask them to elaborate.",
       "probability": 1
     },
     {
@@ -94,8 +92,8 @@
       "message_instruction": {
         "template": "improv_prompt",
         "fact": "none",
-        "type": "prompt",
-        "add_reinforcer": true
+        "type": "prompt"
+
       }
     },
     {
@@ -155,8 +153,8 @@
       "message_instruction": {
         "template": "improv_prompt",
         "fact": "none",
-        "type": "prompt",
-        "add_reinforcer": true
+        "type": "prompt"
+
       }
     },
     {
@@ -171,8 +169,8 @@
       "message_instruction": {
         "template": "base_prompt",
         "fact": "there was a CCTV screen located inside the store.",
-        "type": "prompt",
-        "add_reinforcer": true
+        "type": "prompt"
+
       }
     },
     {
@@ -322,8 +320,7 @@
       "message_instruction": {
         "template": "improv_prompt",
         "fact": "none",
-        "type": "prompt",
-        "add_reinforcer": true
+        "type": "prompt"
       }
     },
     {
@@ -353,8 +350,8 @@
       "message_instruction": {
         "template": "base_prompt",
         "fact": "the robber in the gray hoodie did not attempt to lock the store door after entering.",
-        "type": "prompt",
-        "add_reinforcer": true
+        "type": "prompt"
+
       }
     },
     {
@@ -414,8 +411,7 @@
       "message_instruction": {
         "template": "improv_prompt",
         "fact": "none",
-        "type": "prompt",
-        "add_reinforcer": true
+        "type": "prompt"
       }
     },
     {

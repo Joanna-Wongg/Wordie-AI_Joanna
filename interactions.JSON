@@ -5738,6 +5738,246 @@
                     "relativeInteractionJointLogProbability": 0
                 }
             ]
+        },
+        "8": {
+            "user_id": 9,
+            "interactions": [
+                {
+                    "interaction_type": "message",
+                    "message": "ok",
+                    "response": "Question 1: Was it dark outside prior to the robbers entering the store?",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 11:14:45.360453",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "nope",
+                    "response": "Interesting you mention that. The time of the robbery and the lighting conditions outside could indeed play a significant role in the investigation. It's crucial to consider all aspects, including the time of day, weather conditions, and visibility, as they can affect the witnesses' ability to provide accurate descriptions of the suspects.",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 11:14:52.675391",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "okay",
+                    "response": "Question 2: Did the customer who was paying at the cashier's counter get down on the ground when threatened by the robber with the tattoo?",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 11:15:02.987001",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "okay",
+                    "response": "Interesting you mention that. The reactions of individuals during a robbery can vary greatly depending on the circumstances and their personal responses to stress. It's crucial to consider these factors when piecing together the sequence of events. This information could potentially help in understanding the dynamics of the situation better and possibly even in identifying the suspects.",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 11:26:31.045293",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                }
+            ]
+        },
+        "q": {
+            "user_id": 10,
+            "interactions": [
+                {
+                    "interaction_type": "message",
+                    "message": "ok",
+                    "response": "Question 1: Was it dark outside prior to the robbers entering the store?",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 11:30:39.750912",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "no",
+                    "response": "I appreciate the detail you provided. The lighting conditions outside the store at the time of the robbery could indeed play a significant role in the investigation. Can you provide any additional information about the surroundings of the store or any unusual activity you might have noticed?",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 11:30:47.912140",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "no",
+                    "response": "Question 2: Did the customer who was paying at the cashier's counter get down on the ground when threatened by the robber with the tattoo?",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 11:30:56.758572",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "ok",
+                    "response": "Question 1: Was it dark outside prior to the robbers entering the store?",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 12:07:37.793910",
+                    "password": "1",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "yes",
+                    "response": "Your response is consistent with the findings. The time of the robbery, being in the evening, would have likely resulted in reduced visibility outside. This could have potentially influenced the robbers' decision to commit the crime at this time, as the cover of darkness may have provided an added layer of concealment.",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 12:07:50.901855",
+                    "password": "1",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "ok",
+                    "response": "Question 2: Did the customer who was paying at the cashier's counter get down on the ground when threatened by the robber with the tattoo?",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 12:10:17.253182",
+                    "password": "1",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "no",
+                    "response": "Your response is aligned with the testimonies we have. The customer at the cashier's counter did not get down when threatened by the robber with the tattoo. This could indicate that the customer was either too shocked to react or possibly knew the robber. Further investigation is needed to clarify this point.",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 12:11:53.282632",
+                    "password": "1",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                }
+            ]
+        },
+        "w": {
+            "user_id": 11,
+            "interactions": [
+                {
+                    "interaction_type": "message",
+                    "message": "ok",
+                    "response": "Question 1: Was it dark outside prior to the robbers entering the store?",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 11:36:51.072750",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "no",
+                    "response": "Thank you for that observation. It's important to note that the lighting conditions outside the store at the time of the robbery could play a significant role in the investigation. Your input is valuable in helping us understand the dynamics of the crime.",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 11:36:58.803629",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "ok",
+                    "response": "Question 2: Did the customer who was paying at the cashier's counter get down on the ground when threatened by the robber with the tattoo?",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 11:37:09.151215",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                },
+                {
+                    "interaction_type": "message",
+                    "message": "okay",
+                    "response": "That's an interesting point. Your perspective is crucial in this investigation. It's important to consider all aspects of the situation without making any immediate judgments. Your cooperation is greatly appreciated.",
+                    "model": "gpt-4",
+                    "temperature": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "total_tokens": 0,
+                    "logprobs": [],
+                    "timestamp": "2025-06-26 12:04:20.684946",
+                    "password": "2",
+                    "relativeSequenceJointLogProbability": 0,
+                    "relativeInteractionJointLogProbability": 0
+                }
+            ]
         }
     }
 }

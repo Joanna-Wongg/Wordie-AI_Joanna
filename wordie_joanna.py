@@ -366,7 +366,7 @@ def chat():
                 if (
                         msg.get('role') in ('assistant', 'system')
                         and isinstance(content, str)
-
+                        and not content.startswith('[System memory]')
                 ):
                     response = content
                     break

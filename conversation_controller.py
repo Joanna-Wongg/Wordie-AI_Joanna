@@ -41,6 +41,11 @@ class ConversationController:
 
     def make_prompt(self, template: str, fact_text: str = None, mode: str = "confirm") -> str:
         prompt = template + (fact_text or "")
+        if template is None:
+            raise ValueError("Template is None")
+        if fact_text is None:
+            fact_text = ""
+
 
         for struct in self.sentence_structures:
             if random.random() <= struct.get("probability", 1):
@@ -59,7 +64,8 @@ class ConversationController:
                     text = struct.get("sentence", "")
 
                 prompt += " " + text
-
+        if not isinstance(prompt, str):
+            raise TypeError(f"make_prompt did not return a string: {prompt}")
         return prompt.strip()
 
     def process_user_input(self, user_message: str):
@@ -106,19 +112,22 @@ class ConversationController:
         elif action == "call_api":
             instr = entry.get("message_instruction", {})
             template_key = instr.get("template", "base_prompt")
-            fact = instr.get("fact")
+            fact = instr.get("fact") or ""
             add_reinforcer = instr.get("add_reinforcer", False)
 
             # Build user-like prompt
             if template_key == "base_prompt":
                 user_prompt = self.make_prompt(self.base_prompt, fact)
             else:
-                user_prompt = self.make_prompt(self.improv_prompt)
+                user_prompt = self.make_prompt(self.improv_prompt, fact)
 
             # Add reinforcer if specified
             if add_reinforcer:
                 reinforcer = self.get_reinforcer()
                 user_prompt += f" {reinforcer}"
+
+            # Append user input
+            self.conversation.append({"role": "user", "content": user_prompt})
 
             # Call API
             try:
