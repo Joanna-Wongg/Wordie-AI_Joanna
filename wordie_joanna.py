@@ -1,4 +1,4 @@
-#NEW TEST FILE LAPTOP wordie 3
+# NEW TEST FILE LAPTOP wordie 3
 
 import sqlite3
 from flask import Flask, jsonify, render_template, request, session as flask_session, redirect, url_for, flash, send_from_directory, abort
@@ -249,12 +249,12 @@ def get_messages(user_id, password):
         'SELECT message, response FROM messages WHERE user_id = ? AND password = ? ORDER BY timestamp',
         (user_id, password)
     )
-    conv = []
-    for msg, resp in c.fetchall():
-        conv.append({"role": "user", "content": msg})
-        conv.append({"role": "assistant", "content": resp})
+    conversation = []
+    for message, response in c.fetchall():
+        conversation.append({"role": "user", "content": message})
+        conversation.append({"role": "assistant", "content": response})
     conn.close()
-    return conv
+    return conversation
 
 # MAIN flask app route for Wordie
 @app.route('/', methods=['GET', 'POST'])
@@ -279,7 +279,7 @@ def login():
             flask_session['username'] = username
             flask_session['password'] = password
             flask_session['agent'] = agent[0]
-            flask_session['total_dialogue'] = 0 #CHANGE FROM JOANNA
+            flask_session['total_dialogue'] = 0
             API.update_agent(f"agents/{agent[0]}.json")
             flash('', 'success')
             conn.close()
@@ -299,29 +299,30 @@ def chat():
 
     if 'username' not in flask_session:
         return redirect(url_for('login'))
-#-------------START CHANGES--------------
+
     try:
         # Load agent JSON
-        agent_name = flask_session.get('agent', 'default') #changed back to default
+        agent_name = flask_session.get('agent', 'default')
         agent_path = os.path.join(AGENTS_FOLDER, f"{agent_name}.json")
         with open(agent_path) as f:
             agent_data = json.load(f)
 
         # Update API wrapper
-        API.agent_data = agent_data #CHANGED FROM API.update_agent(agent_data)
+        API.agent_data = agent_data
+        
         # Initialize or reload controller
-        # 4) Create a fresh controller each request
         controller = ConversationController(API, agent_data)
 
-        # 5) Load past conversation from your DB into the controller
+        # Load past conversation from your DB into the controller
         controller.conversation = get_messages(
             flask_session['user_id'],
             flask_session['password']
         )
+        
         # Restore the dialogue counter
         controller.total_dialogue = flask_session.get('total_dialogue', 0)
 
-        # ------------
+        # Initial step for first load
         if request.method == 'GET' \
                 and controller.total_dialogue == 0 \
                 and len(controller.conversation) <= 1:
@@ -341,45 +342,50 @@ def chat():
                         API.agent_data.get('temperature'),
                         0, 0, 0, []
                     )
-        # ------------
 
         if request.method == 'POST':
-            user_text = request.form.get('message', '').strip() #CHANGED
-            # -----------
-            if user_text.lower() == 'ok' and controller.total_dialogue == 1:
+            message = request.form.get('message', '').strip()
+            
+            # Special handling for 'ok' response
+            if message.lower() == 'ok' and controller.total_dialogue == 1:
                 controller.total_dialogue += 1
-            #-----------
-            if not user_text: #CHANGED THIS FROM MESSAGE
+                
+            if not message:
                 flash('Message cannot be empty', 'error')
                 return jsonify({'error': 'Message cannot be empty'}), 400
 
-            # Append and step through flow
-            controller.conversation.append({'role': 'user', 'content': user_text})
+            # Append user message and step through flow
+            controller.conversation.append({'role': 'user', 'content': message})
             controller.step()
             flask_session['total_dialogue'] = controller.total_dialogue
 
-            assistant_reply = ""
+            # Extract the latest assistant response
+            response = ""
             for msg in reversed(controller.conversation):
                 content = msg.get('content')
                 if (
                         msg.get('role') in ('assistant', 'system')
                         and isinstance(content, str)
-                        and not content.startswith('[System memory]')
+
                 ):
-                    assistant_reply = content
+                    response = content
                     break
-            if not assistant_reply:
-                assistant_reply = "Sorry, I didn't catch that—could you please repeat?"
+            if not response:
+                response = "Sorry, I didn't catch that—could you please repeat?"
 
             # Persist interaction
+            model = API.agent_data.get("model")
+            temperature = API.agent_data.get("temperature")
             add_message(
-                flask_session['user_id'], flask_session['password'],
-                user_text, assistant_reply,
-                API.agent_data.get('model'),
-                API.agent_data.get('temperature'),
+                flask_session['user_id'], 
+                flask_session['password'],
+                message, 
+                str(response), 
+                model, 
+                temperature,
                 0, 0, 0, []
             )
-            return jsonify({'response': assistant_reply}) #CHANGED FROM RESPONSE
+            return jsonify({'response': response})
 
         return render_template('chat.html', username=flask_session['username'], messages=controller.conversation, show_popup=show_popup)
     except Exception as ex:

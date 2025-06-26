@@ -1,5 +1,7 @@
 // sudo message display changes for end of interaction 2
-document.getElementById('chat-form').addEventListener('submit', function() {
+document.getElementById('chat-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
     const inputField = document.getElementById('chat-input');
     if (inputField.value.includes('$sudo')) {
         setTimeout(() => {
@@ -9,6 +11,16 @@ document.getElementById('chat-form').addEventListener('submit', function() {
             document.getElementById('redirection').style.display = 'block';
         }, 10);
     }
+
+    appendUserMessage();
+
+    setTimeout(() => {
+        const chatContainer = document.getElementById('chat-messages-container');
+        chatContainer.scrollTo({
+            top: chatContainer.scrollHeight,
+            behavior: 'smooth'
+        });
+    }, 300);
 });
 
 // Focus on the chat input field when the page loads
@@ -112,17 +124,7 @@ function appendMessage(message, role, callback) {
 }
 
 // Scroll to bottom on submit 
-document.getElementById('chat-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    appendUserMessage();
-    setTimeout(() => {
-        const chatContainer = document.getElementById('chat-messages-container');
-        chatContainer.scrollTo({
-            top: chatContainer.scrollHeight,
-            behavior: 'smooth'
-        });
-    }, 300); 
-});
+
 
 function appendUserMessage() {
     const inputField = document.getElementById('chat-input');
