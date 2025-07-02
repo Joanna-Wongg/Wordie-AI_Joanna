@@ -1,5 +1,5 @@
 {
-  "mode": "confirmatory",
+  "mode": "api",
   "model": "gpt-4",
   "temperature": 0,
   "top_p": 1,
@@ -9,12 +9,15 @@
   "generate_random_value": true,
   "system_prompt": {
     "role": "system",
-    "content": "As a police AI, your role is to provide information regarding the crime scene. The crime scene involved a robbery that took place in a convenience store. The report was made to the police at approximately 9pm on a Friday. The actual crime occurred sometime before the report was made. You will follow the instruction provided by [System memory]."
+    "content": [
+      "As a police AI, your role is to provide information regarding the crime scene. The crime scene involved a robbery that took place in a convenience store. The report was made to the police at approximately 9pm on a Friday. The actual crime occurred sometime before the report was made. You will follow the instruction provided by [System memory].",
+      "You will never ask a new question unless explicitly instructed to."
+      ]
   },
   "prompt_templates": {
     "base_prompt": "[System memory] In 40-60 words, First, assess whether the user's answer agrees with the accurate fact that ",
     "improv_prompt": "[System memory] In 40-60 words, First, agree with the user's answer.",
-    "final_message": "[System memory] End the conversation gracefully."
+    "message_prompt": "[System memory] In one sentence, please tell the user to prepare for questions by recalling the video that they just watched. Also tell them 'Enter ok to continue.'"
   },
   "keywords": {
     "starters": [
@@ -96,21 +99,15 @@
     },
     {
       "step": 1,
-      "action": "add_instruction",
-      "message": "[System memory] please tell the user to prepare for questions by recalling the video that they just watched. Also tell them 'Enter ok to continue.'"
-    },
-    {
-      "step": 1,
       "action": "call_api",
       "message_instruction": {
-        "template": "improv_prompt",
-        "fact": "none",
+        "template": "message_prompt",
         "type": "prompt"
       }
     },
     {
       "step": 2,
-      "action": "add_other_bubble_delayed",
+      "action": "add_first_question",
       "delay_ms": 2500,
       "message": "Question 1: Was it dark outside prior to the robbers entering the store?"
     },
@@ -134,7 +131,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "improv_prompt",
-        "fact": "none",
+        "fact": "",
         "type": "prompt",
         "add_reinforcer": true
       }
@@ -195,7 +192,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "improv_prompt",
-        "fact": "none",
+        "fact": "",
         "type": "prompt",
         "add_reinforcer": true
       }
@@ -249,7 +246,7 @@
     {
       "step": 20,
       "action": "add_other_bubble_delayed",
-      "delay_ms": 2500,
+      "delay_ms": 200,
       "message": "Question 10: Did any of the customers in the store appear to be in panic during the robbery?"
     },
     {
@@ -279,7 +276,7 @@
     {
       "step": 24,
       "action": "add_other_bubble_delayed",
-      "delay_ms": 2500,
+      "delay_ms": 200,
       "message": "Question 12: Did the cashier or any customers try to make a phone call during the robbery?"
     },
     {
@@ -332,7 +329,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "improv_prompt",
-        "fact": "none",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -362,7 +359,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "improv_prompt",
-        "fact": "none",
+        "fact": "",
         "type": "prompt",
         "add_reinforcer": true
       }
@@ -424,7 +421,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "improv_prompt",
-        "fact": "none",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -454,7 +451,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "improv_prompt",
-        "fact": "none",
+        "fact": "",
         "type": "prompt",
         "add_reinforcer": true
       }
@@ -470,7 +467,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "improv_prompt",
-        "fact": "none",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -493,22 +490,13 @@
       "step": 52,
       "action": "add_other_bubble_delayed",
       "delay_ms": 2500,
-      "message": "Question 26: Did you experience any technical issues during the questioning process?"
+      "message": "Did you experience any technical issues during the questioning process?"
     },
     {
       "step": 53,
-      "action": "call_api",
-      "message_instruction": {
-        "template": "improv_prompt",
-        "fact": "none",
-        "type": "prompt"
-      }
-    },
-    {
-      "step": 54,
-      "action": "add_other_bubble_delayed",
+      "action": "add_other_bubble",
       "delay_ms": 2500,
-      "message": "The CODE to proceed to next section is 9560. NOTE: This is NOT the Prolific completion code, you will be redirected to the completion page automatically after you've finished all the sections. That is all, thank you for your cooperation!"
+      "message": "Thank you for your input. The CODE to proceed to next section is 9560. NOTE: This is NOT the Prolific completion code. That is all, we appreciate your cooperation!"
     }
   ]
 }

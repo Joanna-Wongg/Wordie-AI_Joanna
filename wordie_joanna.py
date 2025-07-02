@@ -6,7 +6,6 @@ from API_openai import API_Call_openai
 from API_anthropic import API_Call_anthropic
 from API_google import API_Call_google
 from API_xai import API_Call_xai
-import sys
 import os
 import json
 from datetime import datetime
@@ -307,85 +306,121 @@ def chat():
         with open(agent_path) as f:
             agent_data = json.load(f)
 
-        # Update API wrapper
-        API.agent_data = agent_data
-        
-        # Initialize or reload controller
-        controller = ConversationController(API, agent_data)
+            # Update API wrapper
+            API.agent_data = agent_data
 
-        # Load past conversation from your DB into the controller
-        controller.conversation = get_messages(
-            flask_session['user_id'],
-            flask_session['password']
-        )
-        
-        # Restore the dialogue counter
-        controller.total_dialogue = flask_session.get('total_dialogue', 0)
+            # Initialize or reload controller
+            controller = ConversationController(API, agent_data)
 
-        # Initial step for first load
-        if request.method == 'GET' \
-                and controller.total_dialogue == 0 \
-                and len(controller.conversation) <= 1:
-            controller.step()
-            flask_session['total_dialogue'] = controller.total_dialogue
+            # Load past conversation from your DB into the controller
+            # BUT exclude system messages to avoid duplication
+            past_messages = get_messages(
+                flask_session['user_id'],
+                flask_session['password']
+            )
 
-            # Persist only if a real question/bubble was emitted
-            if len(controller.conversation) > 1:
-                latest = controller.conversation[-1].get('content', '')
-                if latest and not latest.startswith('[System memory]'):
+            # Only load non-system messages from DB
+            controller.conversation = [msg for msg in controller.conversation if msg.get('role') == 'system']
+            controller.conversation.extend(past_messages)
+
+            # Restore the dialogue counter
+            controller.total_dialogue = flask_session.get('total_dialogue', 0)
+
+            # Initial step for first load
+            if request.method == 'GET' \
+                    and controller.total_dialogue == 0 \
+                    and len([msg for msg in controller.conversation if msg.get('role') != 'system']) == 0:
+
+                initial_conversation_length = len(controller.conversation)
+                controller.step()
+                flask_session['total_dialogue'] = controller.total_dialogue
+
+                # Persist only NEW messages from the initial step
+                new_messages = controller.conversation[initial_conversation_length:]
+                for msg in new_messages:
+                    if (msg.get('role') == 'assistant' and
+                            msg.get('content') and
+                            not msg.get('content', '').startswith('[System memory]')):
+                        add_message(
+                            flask_session['user_id'],
+                            flask_session['password'],
+                            "",  # No user message for initial step
+                            msg.get('content'),
+                            API.agent_data.get('model'),
+                            API.agent_data.get('temperature'),
+                            0, 0, 0, []
+                        )
+
+            if request.method == 'POST':
+                message = request.form.get('message', '').strip()
+
+
+                # Store conversation length before processing
+                pre_processing_length = len(controller.conversation)
+
+                # Process the user input through the controller
+                controller.process_user_input(message)
+                flask_session['total_dialogue'] = controller.total_dialogue
+
+                # Get all new messages that were added during processing
+                new_messages = controller.conversation[pre_processing_length:]
+
+                # Filter and collect responses for the UI
+                responses = []
+                messages_to_persist = []
+
+                for msg in new_messages:
+                    content = msg.get('content')
+                    role = msg.get('role')
+
+                    if role == 'user':
+                        # Skip user messages - they're already handled by process_user_input
+                        continue
+                    elif (role in ('assistant', 'system') and
+                          isinstance(content, str) and
+                          not content.startswith('[System memory]')):
+                        responses.append(content)
+                        messages_to_persist.append(msg)
+
+                # If no valid responses found, use fallback
+                if not responses:
+                    responses = ["Sorry, I didn't catch that—could you please repeat?"]
+                    messages_to_persist = [{"role": "assistant", "content": responses[0]}]
+
+                # Persist messages to database
+                model = API.agent_data.get("model")
+                temperature = API.agent_data.get("temperature")
+
+                # Log the user message once with the first assistant response
+                if messages_to_persist:
+                    first_response = messages_to_persist[0].get('content', responses[0])
                     add_message(
                         flask_session['user_id'],
                         flask_session['password'],
-                        "",
-                        latest,
-                        API.agent_data.get('model'),
-                        API.agent_data.get('temperature'),
+                        message,
+                        first_response,
+                        model,
+                        temperature,
                         0, 0, 0, []
                     )
 
-        if request.method == 'POST':
-            message = request.form.get('message', '').strip()
-            
-            # Special handling for 'ok' response
-            if message.lower() == 'ok' and controller.total_dialogue == 1:
-                controller.total_dialogue += 1
-                
-            if not message:
-                flash('Message cannot be empty', 'error')
-                return jsonify({'error': 'Message cannot be empty'}), 400
+                    # Log additional responses as separate entries with empty user messages
+                    for msg in messages_to_persist[1:]:
+                        add_message(
+                            flask_session['user_id'],
+                            flask_session['password'],
+                            "",  # Empty user message for additional responses
+                            msg.get('content'),
+                            model,
+                            temperature,
+                            0, 0, 0, []
+                        )
 
-            # Append user message and step through flow
-            controller.conversation.append({'role': 'user', 'content': message})
-            controller.step()
-            flask_session['total_dialogue'] = controller.total_dialogue
-
-            # Extract the latest assistant response
-            response = ""
-            for msg in reversed(controller.conversation):
-                content = msg.get('content')
-                if (
-                        msg.get('role') in ('assistant', 'system')
-                        and isinstance(content, str)
-                        and not content.startswith('[System memory]')
-                ):
-                    response = content
-                    break
-            if not response:
-                response = "Sorry, I didn't catch that—could you please repeat?"
-
-            # Persist interaction
-            model = API.agent_data.get("model")
-            temperature = API.agent_data.get("temperature")
-            add_message(
-                flask_session['user_id'], 
-                flask_session['password'],
-                message, 
-                str(response), 
-                model, 
-                temperature,
-                0, 0, 0, []
-            )
-            return jsonify({'response': response})
+                # Return responses for the frontend
+                return jsonify({
+                    'response': responses[-1] if responses else "No response",
+                    'all_responses': responses
+                })
 
         return render_template('chat.html', username=flask_session['username'], messages=controller.conversation, show_popup=show_popup)
     except Exception as ex:
