@@ -15,7 +15,7 @@
       ]
   },
   "prompt_templates": {
-    "base_prompt": "[System memory] In 40-60 words, First, acknowledge the user's answer without confirming or denying its accuracy.",
+    "base_prompt": "[System memory] In 40-60 words, First, acknowledge the user's answer without agreeing or disagreeing.",
     "improv_prompt": "[System memory] In 40-60 words, First, comment on the user's answer without agreeing or disagreeing.",
     "message_prompt": "[System memory] In one sentence, please tell the user to prepare for questions by recalling the video that they just watched. Also tell them 'Enter ok to continue.'"
   },
@@ -34,7 +34,7 @@
   "sentence_structures": [
     {
       "type": "dynamic",
-      "construct": "Use {neutral_starters}, then maintain a neutral conversational tone while acknowledging the participant’s response without judging its accuracy. Do not ask them to elaborate.",
+      "construct": "Use {neutral_starters}, then maintain a neutral conversational tone while giving your feedback without confirming or denying its accuracy. Do not ask them to elaborate.",
       "probability": 1
     },
     {
@@ -74,7 +74,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "it was dark outside prior to the robbers entering the store.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -88,10 +88,9 @@
       "step": 5,
       "action": "call_api",
       "message_instruction": {
-        "template": "improv_prompt",
+        "template": "base_prompt",
         "fact": "",
-        "type": "prompt",
-        "add_reinforcer": true
+        "type": "prompt"
       }
     },
     {
@@ -105,7 +104,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "there was a female cashier assisting a customer at the counter during the robbery.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -120,7 +119,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "none of the robbers possessed more than one firearm.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -135,7 +134,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "none of the customers entered or left the store during the robbery.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -149,10 +148,9 @@
       "step": 13,
       "action": "call_api",
       "message_instruction": {
-        "template": "improv_prompt",
+        "template": "base_prompt",
         "fact": "",
-        "type": "prompt",
-        "add_reinforcer": true
+        "type": "prompt"
       }
     },
     {
@@ -166,9 +164,8 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "there was a CCTV screen located inside the store.",
-        "type": "prompt",
-        "add_reinforcer": true
+        "fact": "",
+        "type": "prompt"
       }
     },
     {
@@ -182,7 +179,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "there was no visible damage to the store's items during the robbery.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -197,7 +194,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "the robbers did not attempt to steal money from an ATM inside the store.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -212,7 +209,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "none of the customers appeared to be in panic during the robbery.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -227,7 +224,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "the female cashier did not flee to the back of the store during the robbery.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -242,7 +239,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "no one tried to make a phone call during the robbery.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -257,7 +254,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "there was no emergency telephone located inside the store.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -272,7 +269,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "the robber in the green hoodie did not carry a shotgun as their weapon.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -286,7 +283,7 @@
       "step": 31,
       "action": "call_api",
       "message_instruction": {
-        "template": "improv_prompt",
+        "template": "base_prompt",
         "fact": "",
         "type": "prompt"
       }
@@ -302,7 +299,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "none of the robbers discharged their weapon.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -316,10 +313,9 @@
       "step": 35,
       "action": "call_api",
       "message_instruction": {
-        "template": "improv_prompt",
+        "template": "base_prompt",
         "fact": "",
-        "type": "prompt",
-        "add_reinforcer": true
+        "type": "prompt"
       }
     },
     {
@@ -333,7 +329,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "there was no security guard present during the robbery.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -348,9 +344,8 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "the robber in the gray hoodie did not attempt to lock the store door after entering.",
-        "type": "prompt",
-        "add_reinforcer": true
+        "fact": "",
+        "type": "prompt"
       }
     },
     {
@@ -364,7 +359,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "no new customers entered the store during the robbery.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -378,7 +373,7 @@
       "step": 43,
       "action": "call_api",
       "message_instruction": {
-        "template": "improv_prompt",
+        "template": "base_prompt",
         "fact": "",
         "type": "prompt"
       }
@@ -394,7 +389,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "one of the robbers did leap over the counter towards the area where the cashier was located.",
+        "fact": "",
         "type": "prompt"
       }
     },
@@ -408,10 +403,9 @@
       "step": 47,
       "action": "call_api",
       "message_instruction": {
-        "template": "improv_prompt",
+        "template": "base_prompt",
         "fact": "",
-        "type": "prompt",
-        "add_reinforcer": true
+        "type": "prompt"
       }
     },
     {
@@ -424,7 +418,7 @@
       "step": 49,
       "action": "call_api",
       "message_instruction": {
-        "template": "improv_prompt",
+        "template": "base_prompt",
         "fact": "",
         "type": "prompt"
       }
@@ -440,7 +434,7 @@
       "action": "call_api",
       "message_instruction": {
         "template": "base_prompt",
-        "fact": "there were no female customers present at the cash counter when the robbers entered.",
+        "fact": "",
         "type": "prompt"
       }
     },
